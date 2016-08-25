@@ -5,6 +5,10 @@
 #include <iostream>
 #include "Request.h"
 #include <sstream>
+#include <Http.h>
+#include <HttpUtils.h>
+
+std::string DEFAULT_REQUEST_URL;
 
 Request::Request(Method _method)
 {
@@ -79,11 +83,11 @@ Request *Request::addParam(std::string key, std::string value, bool forceAddToUr
     }
     if(forceAddToUrl || method == GET || method == DELETE)
     {
-        urlParams.insert(key, encodeString(value));
+        urlParams[key] = HttpUtils::encodeString(value);
     }
     else if(method == POST || method == PUT)
     {
-        postParams.insert(key, value);
+        postParams[key] = value;
     }
     return this;
 }
@@ -122,7 +126,7 @@ Request *Request::addUrlPart(std::string value)
 {
     if(value.empty())
     {
-        if(LOGGING)std::cout << "RequestBuilder >> addParam : param not set");
+        if(LOGGING)std::cout << "RequestBuilder >> addParam : param not set";
         return this;
     }
     if(builder->str().length() == 0)
@@ -134,7 +138,7 @@ Request *Request::addUrlPart(std::string value)
     {
         *builder << "/";
     }
-    *builder << value.front() == '/' ? value.substr(1, value.length()) : value;
+    *builder << value.front() == "/" ? value.substr(1, value.length()) : value;
     return this;
 }
 
@@ -170,7 +174,7 @@ Request *Request::addUrlPart(long value)
 
 Request *Request::addHeader(std::string key, std::string value)
 {
-    headers.insert(key, value);
+    headers[key] = value;
     return this;
 }
 
@@ -227,12 +231,20 @@ std::string Request::getFileParamName()
 
 std::string Request::getParam(std::string param)
 {
-    std::string urlParam = ((auto)urlParams.find(param)).first;
-    if(!urlParam.empty())
-        return urlParam;
-    std::string postParam = ((auto)postParam.find(param)).first;
-    if(!postParam.empty())
-        return postParam;
+    std::unordered_map<std::string, std::string>::const_iterator pair = urlParams.find(param);
+    if (pair != urlParams.end())
+    {
+        std::string urlParam = pair->second;
+        if(!urlParam.empty())
+            return urlParam;
+    }
+    pair = postParams.find(param);
+    if (pair != urlParams.end())
+    {
+        std::string postParam = pair->second;
+        if (!postParam.empty())
+            return postParam;
+    }
     return 0;
 }
 

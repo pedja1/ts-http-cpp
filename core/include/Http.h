@@ -6,14 +6,15 @@
 #define TS_HTTP_CPP_HTTP_H
 
 #include <stdexcept>
-#include "IInternet.h"
-#include "INetwork.h"
-#include "IUI.h"
-#include "ITextManager.h"
 
 #define LOG_TAG "ts-http"
 
 extern bool LOGGING;
+
+class IInternet;
+class INetwork;
+class IUI;
+class ITextManager;
 
 class Http
 {
@@ -44,21 +45,8 @@ class Http
     }
 
 public:
-    static Http *instance()
-    {
-        if (!s_instance)
-            throw std::invalid_argument("You must initialize Http first. Call initialize()");
-        return s_instance;
-    }
-
-    static void initialize(INetwork *network, IInternet *internet, IUI *ui, ITextManager *textManager)
-    {
-        assertNetwork(network);
-        assertInternet(internet);
-        assertUi(ui);
-        assertTm(textManager);
-        s_instance = new Http(network, internet, ui, textManager);
-    }
+    static Http *instance();
+    static void initialize(INetwork *network, IInternet *internet, IUI *ui, ITextManager *textManager);
 
 public:
     const INetwork *network;

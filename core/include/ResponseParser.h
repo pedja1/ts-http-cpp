@@ -6,7 +6,9 @@
 #ifndef TS_HTTP_CPP_RESPONSEPARSER_H
 #define TS_HTTP_CPP_RESPONSEPARSER_H
 
-#include "IInternet.h"
+#include <string>
+
+class IInternet;
 
 enum Status
 {
@@ -27,15 +29,17 @@ enum Status
     RESPONSE_STATUS_CANCELLED
 };
 
+class Response;
+
 class ResponseParser
 {
 protected:
     Response *response;
     void* parseObject;
-public:
 
-    ResponseParser(std::string response);
-    ResponseParser(Response* response);
+public:
+    ResponseParser(std::string);
+    ResponseParser(Response*);
 
     void* getParseObject();
     Response* getServerResponse();

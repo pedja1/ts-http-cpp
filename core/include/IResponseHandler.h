@@ -10,6 +10,8 @@ enum ResponseMessageFormat
     show_as_toast, show_as_dialog, show_as_notification/*this one is stupid*/
 };
 
+class ResponseParser;
+
 class IResponseHandler
 {
 public:

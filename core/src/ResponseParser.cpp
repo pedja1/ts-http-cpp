@@ -3,6 +3,7 @@
 //
 
 #include "ResponseParser.h"
+#include "IInternet.h"
 
 ResponseParser::ResponseParser(std::string _response)
 {

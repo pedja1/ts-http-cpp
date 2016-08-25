@@ -5,9 +5,9 @@
 #ifndef TS_HTTP_CPP_RESPONSEHANDLERIMPL_H
 #define TS_HTTP_CPP_RESPONSEHANDLERIMPL_H
 
-
 #include "IResponseHandler.h"
 
+class ResponseParser;
 
 extern ResponseMessagePolicy* DEFAULT_RESPONSE_MESSAGE_POLICY;
 

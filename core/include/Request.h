@@ -8,10 +8,11 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "IRequestHandler.h"
-#include "IResponseHandler.h"
 #include "ResponseHandlerImpl.h"
 
+class ResponseHandlerImpl;
+class ResponseMessagePolicy;
+class IRequestHandler;
 
 extern std::string DEFAULT_REQUEST_URL;
 
@@ -41,7 +42,11 @@ enum PostMethod
             FORM_DATA
 };
 
-class std::stringstream;
+class UploadFile
+{
+public:
+    std::string url, fileName, mimeType;
+};
 
 class Request
 {
@@ -288,12 +293,6 @@ public:
     IRequestHandler* getRequestHandler();
 
     Request *setRequestHandler(IRequestHandler*);
-};
-
-class UploadFile
-{
-public:
-    std::string url, fileName, mimeType;
 };
 
 #endif //TS_HTTP_CPP_REQUEST_H

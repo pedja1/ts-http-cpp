@@ -5,10 +5,12 @@
 #include "ResponseHandlerImpl.h"
 #include "ResponseParser.h"
 #include "Http.h"
+#include "IUI.h"
+#include "ITextManager.h"
 
 ResponseMessagePolicy* DEFAULT_RESPONSE_MESSAGE_POLICY = new ResponseMessagePolicy();
 
-ResponseHandlerImpl::ResponseHandlerImpl(int requestCode, ResponseParser* responseParser, ResponseMessagePolicy* responseMessagePolicy = DEFAULT_RESPONSE_MESSAGE_POLICY)
+ResponseHandlerImpl::ResponseHandlerImpl(int requestCode, ResponseParser* responseParser, ResponseMessagePolicy* responseMessagePolicy /*= DEFAULT_RESPONSE_MESSAGE_POLICY*/)
 {
     if(!responseParser)return;
     if (responseParser->getResponseStatus() == RESPONSE_STATUS_SUCCESS)

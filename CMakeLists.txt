@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.6)
 project(ts_http_cpp)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 
-set(SOURCE_FILES main.cpp Request.cpp Request.h IRequestHandler.h IResponseHandler.h ResponseHandlerImpl.cpp ResponseHandlerImpl.h Http.h Http.cpp IInternet.h IUI.h INetwork.h ITextManager.h ResponseParser.cpp ResponseParser.h RequestManager.cpp RequestManager.h)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/core/include)
+file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/core/src/*.cpp")
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/core/)
+#file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/core/*.cpp")
+
+set(SOURCE_FILES ${SOURCE_FILES} main.cpp)
 add_executable(ts_http_cpp ${SOURCE_FILES})

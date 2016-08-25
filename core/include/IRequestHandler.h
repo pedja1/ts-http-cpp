@@ -5,8 +5,8 @@
 #ifndef TS_HTTP_CPP_REQUESTHANDLER_H
 #define TS_HTTP_CPP_REQUESTHANDLER_H
 
-
 class Request;
+class ResponseParser;
 
 class IRequestHandler
 {
